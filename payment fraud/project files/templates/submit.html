@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            width: 420px;
+            padding: 40px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            animation: popIn 0.6s ease;
+        }
+
+        @keyframes popIn {
+            0% {transform: scale(0.7); opacity: 0;}
+            100% {transform: scale(1); opacity: 1;}
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .icon {
+            font-size: 60px;
+            animation: bounce 1.2s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
+        }
+
+        .status {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .fraud {
+            color: #e74c3c;
+        }
+
+        .safe {
+            color: #27ae60;
+        }
+
+        .prob-box {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .bar {
+            background: #eee;
+            border-radius: 10px;
+            height: 18px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #c0392b);
+            animation: loadBar 1.5s ease-out forwards;
+        }
+
+      
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 26px;
+            background: #4c6ef5;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #364fc7;
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>Prediction Result</h2>
+
+    {% if is_fraud %}
+        <div class="icon">⚠️</div>
+        <div class="status fraud">FRAUD TRANSACTION</div>
+    {% else %}
+        <div class="icon">✅</div>
+        <div class="status safe">SAFE TRANSACTION</div>
+    {% endif %}
+
+    <div class="prob-box">
+        <strong>Fraud Probability: {{ prob }}</strong>
+        <div class="bar">
+            <div class="fill"></div>
+        </div>
+    </div>
+
+    <a href="/predict" class="btn">Try Another</a>
+
+</div>
+
+</body>
+</html>
